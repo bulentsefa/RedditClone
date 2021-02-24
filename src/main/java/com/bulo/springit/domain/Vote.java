@@ -1,4 +1,4 @@
-package com.bulo.springit.model;
+package com.bulo.springit.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
