@@ -1,6 +1,10 @@
 package com.bulo.springit;
 
 import com.bulo.springit.config.SpringitProperties;
+import com.bulo.springit.domain.Comment;
+import com.bulo.springit.domain.Link;
+import com.bulo.springit.repository.CommentRepository;
+import com.bulo.springit.repository.LinkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +32,15 @@ public class SpringitApplication {
 
 
     @Bean
-    CommandLineRunner runner(){
+    CommandLineRunner runner(LinkRepository linkRepository, CommentRepository commentRepository){
         return args -> {
-            System.out.println("Printing out all the bean names in the application context.");
-            System.out.println("----------------------------------------------------");
-            String[] beans = applicationContext.getBeanDefinitionNames();
-            Arrays.sort(beans);
+          Link link = new Link ("Getting Started with Spring Boot2", "htpps://therealdanvega.com/springb-boot-2");
+            linkRepository.save(link);
 
-            for(String bean: beans){
+            Comment comment = new Comment("This Spring Boot Comment", link);
+            commentRepository.save(comment);
+            link.addComment(comment);
 
-            }
-
-            log.error("CommandLineRunner.run();");
-            log.warn("CommandLineRunner.run();");
-            log.info("CommandLineRunner.run();");
-            log.debug("CommandLineRunner.run();");
-            log.trace("CommandLineRunner.run();");
         };
     }
 }
